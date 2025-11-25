@@ -67,6 +67,14 @@ const addTask = (quadrant: keyof typeof quadrants.value) =>{
     })
 }
 
+const saveToLocalStorage = () => {
+  localStorage.setItem('task-items', JSON.stringify(quadrants.value));
+}
+
+const onDragEnd = () => {
+  saveToLocalStorage();
+}
+
 const updateTask = (task: Task, quadrant: keyof typeof quadrants.value) =>{
   Swal.fire({
     title: `TAMBAH DATA ${quadrant.toUpperCase()}`,
@@ -317,6 +325,7 @@ if(isEmpty){
           group="tasks"
           class="space-y-2"
           @dblclick="addTask('urgentImportant')"
+          @end="onDragEnd"
         >
           <div
             v-for="task in quadrants.urgentImportant"
@@ -367,6 +376,7 @@ if(isEmpty){
           group="tasks"
           class="space-y-2"
           @dblclick="addTask('notUrgentImportant')"
+          @end="onDragEnd"
         >
           <div
             v-for="task in quadrants.notUrgentImportant"
@@ -416,6 +426,7 @@ if(isEmpty){
           group="tasks"
           class="space-y-2"
           @dblclick="addTask('urgentNotImportant')"
+          @end="onDragEnd"
         >
           <div
             v-for="task in quadrants.urgentNotImportant"
@@ -464,6 +475,7 @@ if(isEmpty){
           group="tasks"
           class="space-y-2"
           @dblclick="addTask('notUrgentNotImportant')"
+          @end="onDragEnd"
         >
           <div
             v-for="task in quadrants.notUrgentNotImportant"
